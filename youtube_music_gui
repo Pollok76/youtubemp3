@@ -1,0 +1,68 @@
+import os
+import tkinter as tk
+from tkinter import filedialog, messagebox
+import yt_dlp
+
+def download_audio(url, output_directory):
+    try:
+        # Options pour yt-dlp
+        ydl_opts = {
+            'format': 'bestaudio/best',
+            'postprocessors': [{
+                'key': 'FFmpegExtractAudio',
+                'preferredcodec': 'mp3',
+                'preferredquality': '192',
+            }],
+            'outtmpl': os.path.join(output_directory, '%(title)s.%(ext)s'),
+        }
+
+        # Téléchargement
+        with yt_dlp.YoutubeDL(ydl_opts) as ydl:
+            ydl.download([url])
+
+        messagebox.showinfo("Succès", "Téléchargement et conversion terminés.")
+    except Exception as e:
+        messagebox.showerror("Erreur", f"Une erreur est survenue : {e}")
+
+def download_button_action(url_entry, output_dir_label):
+    url = url_entry.get()
+    output_directory = output_dir_label.cget("text")
+
+    if not url:
+        messagebox.showerror("Erreur", "Veuillez entrer une URL YouTube valide.")
+        return
+
+    download_audio(url, output_directory)
+
+def choose_output_directory(output_dir_label):
+    directory = filedialog.askdirectory()
+    if directory:
+        output_dir_label.config(text=directory)
+
+def create_interface():
+    # Fenêtre principale
+    root = tk.Tk()
+    root.title("Téléchargeur de Musique YouTube")
+
+    # URL Label et Entry
+    tk.Label(root, text="Entrez l'URL de la vidéo YouTube :").pack(pady=5)
+    url_entry = tk.Entry(root, width=50)
+    url_entry.pack(pady=5)
+
+    # Choisir le dossier de sortie
+    tk.Label(root, text="Dossier de sortie :").pack(pady=5)
+    output_dir_label = tk.Label(root, text=os.getcwd(), relief="sunken", width=50)
+    output_dir_label.pack(pady=5)
+
+    choose_dir_button = tk.Button(root, text="Choisir un dossier", command=lambda: choose_output_directory(output_dir_label))
+    choose_dir_button.pack(pady=5)
+
+    # Bouton de téléchargement
+    download_button = tk.Button(root, text="Télécharger", command=lambda: download_button_action(url_entry, output_dir_label))
+    download_button.pack(pady=20)
+
+    # Lancer l'application
+    root.mainloop()
+
+if __name__ == "__main__":
+    create_interface()
