@@ -1,18 +1,28 @@
-Pour repartir sur une base propre et créer un environnement de développement Python dédié pour votre projet, voici les étapes complètes. Cela garantira que toutes les dépendances et configurations sont isolées dans un environnement virtuel.
+# Création d'un environnement de développement Python pour générer un exécutable
 
-Étape 1 : Installer Python proprement
-Téléchargez la version de Python adaptée à votre système depuis python.org.
-Lors de l'installation :
-Cochez "Add Python to PATH".
-Sélectionnez Customize Installation pour vérifier que pip et venv sont installés.
-Cochez "Install for all users" si disponible.
-Étape 2 : Configurer un environnement virtuel Python
-Créez un dossier pour votre projet :
+Ce guide détaille comment configurer un environnement de développement Python propre pour créer un exécutable à partir de votre script.
 
-bash
-Copier le code
-mkdir youtube_downloader_project
-cd youtube_downloader_project
+---
+
+## Étape 1 : Installer Python proprement
+
+1. **Télécharger Python** :
+   - Rendez-vous sur [python.org](https://www.python.org/downloads/) et téléchargez la version correspondant à votre système.
+2. **Installation** :
+   - Lors de l'installation :
+     - **Cochez** "Add Python to PATH".
+     - Sélectionnez **Customize Installation** pour vérifier que `pip` et `venv` sont inclus.
+     - Activez "Install for all users" si disponible.
+
+---
+
+## Étape 2 : Configurer un environnement virtuel Python
+
+1. **Créer un dossier pour le projet** :
+   ```bash
+   mkdir youtube_downloader_project
+   cd youtube_downloader_project
+
 Créez un environnement virtuel isolé :
 
 bash
